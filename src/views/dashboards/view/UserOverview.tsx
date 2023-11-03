@@ -1,0 +1,90 @@
+// ** React Imports
+import { ReactElement } from 'react'
+
+// ** MUI Imports
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import CardHeader from '@mui/material/CardHeader'
+import Typography from '@mui/material/Typography'
+import CardContent from '@mui/material/CardContent'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Types
+import { ThemeColor } from 'src/@core/layouts/types'
+
+// ** Custom Components Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
+interface SaleDataType {
+  stats: string
+  title: string
+  color: ThemeColor
+  icon: ReactElement
+}
+
+const salesData: SaleDataType[] = [
+  {
+    stats: '128',
+    color: 'info',
+    title: 'Customers',
+    icon: <Icon icon='mdi:account' />
+  },
+  {
+    stats: '50',
+    color: 'warning',
+    title: 'Driver',
+    icon: <Icon icon='mdi:motorbike' />
+  },
+  {
+    stats: '10',
+    color: 'info',
+    title: 'Partner',
+    icon: <Icon icon='mdi:people' />
+  },
+  {
+    stats: '3',
+    color: 'error',
+    title: 'Report Users',
+    icon: <Icon icon='mdi:report-problem' />
+  }
+]
+
+const renderStats = () => {
+  return salesData.map((sale: SaleDataType, index: number) => (
+    <Grid item xs={12} sm={3} key={index}>
+      <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
+        <CustomAvatar skin='light' variant='rounded' color={sale.color} sx={{ mr: 4 }}>
+          {sale.icon}
+        </CustomAvatar>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Typography variant='h6' sx={{ fontWeight: 600 }}>
+            {sale.stats}
+          </Typography>
+          <Typography variant='caption'>{sale.title}</Typography>
+        </Box>
+      </Box>
+    </Grid>
+  ))
+}
+
+const UserOverview = () => {
+  return (
+    <Card>
+      <CardHeader
+        sx={{ pb: 3.25 }}
+        title='User List'
+        titleTypographyProps={{ variant: 'h6' }}
+      />
+      <CardContent>
+        <Grid container spacing={6}>
+          {renderStats()}
+        </Grid>
+      </CardContent>
+    </Card>
+  )
+}
+
+export default UserOverview
